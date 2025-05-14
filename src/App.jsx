@@ -1,7 +1,28 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import jsPDF from 'jspdf';
 import './App.css';
 
 export default function PlanoSaudeOrcamento() {
+
+  const enviarWhatsapp = () => {
+  const numeroDestino = '5521976879112'; // Substitua com o seu número com DDI + DDD
+  const mensagem = `Olá, gostaria de solicitar um orçamento para plano de saúde.
+
+*Nome:* ${form.nome}
+*Email:* ${form.email}
+*Telefone:* ${form.telefone}
+*Idade:* ${form.idade}
+*Dependentes:* ${form.dependentes}
+*Plano:* ${form.tipo}
+*Valor estimado:* R$ ${orcamento},00
+
+Aguardo retorno.`;
+
+  const url = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(mensagem)}`;
+  window.open(url, '_blank');
+};
+
+
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -24,7 +45,6 @@ export default function PlanoSaudeOrcamento() {
     const idade = parseInt(form.idade);
     const dep = parseInt(form.dependentes);
 
-    // Simples lógica de preço baseada na idade e tipo de plano
     if (form.tipo === 'Individual') {
       base = idade <= 30 ? 200 : idade <= 45 ? 300 : 450;
     } else if (form.tipo === 'Familiar') {
@@ -36,69 +56,115 @@ export default function PlanoSaudeOrcamento() {
     setOrcamento(base);
   };
 
+  const gerarPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text('Orçamento de Plano de Saúde', 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Nome: ${form.nome}`, 20, 40);
+    doc.text(`Email: ${form.email}`, 20, 50);
+    doc.text(`Telefone: ${form.telefone}`, 20, 60);
+    doc.text(`Idade: ${form.idade}`, 20, 70);
+    doc.text(`Dependentes: ${form.dependentes}`, 20, 80);
+    doc.text(`Tipo de plano: ${form.tipo}`, 20, 90);
+    doc.text(`Valor estimado: R$ ${orcamento},00`, 20, 110);
+
+    doc.save(`orcamento-${form.nome.replace(' ', '_')}.pdf`);
+  };
+
   return (
     <div className="form-container">
       <h2 className="text-xl font-bold mb-4">Simulação de Plano de Saúde</h2>
-      <input
-        type="text"
-        name="nome"
-        placeholder="Nome completo"
-        value={form.nome}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="E-mail"
-        value={form.email}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
-      />
-      <input
-        type="tel"
-        name="telefone"
-        placeholder="Telefone"
-        value={form.telefone}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
-      />
-      <input
-        type="number"
-        name="idade"
-        placeholder="Idade do titular"
-        value={form.idade}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
-      />
-      <input
-        type="number"
-        name="dependentes"
-        placeholder="Número de dependentes"
-        value={form.dependentes}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
-      />
-      <select
-        name="tipo"
-        value={form.tipo}
-        onChange={handleChange}
-        className="mb-2 w-full border p-2 rounded"
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          calcularOrcamento();
+        }}
       >
-        <option value="Individual">Individual</option>
-        <option value="Familiar">Familiar</option>
-        <option value="Empresarial">Empresarial</option>
-      </select>
-      <button
-        onClick={calcularOrcamento}
-        className="w-full bg-green-600 text-white py-2 rounded"
-      >
-        Calcular Orçamento
-      </button>
+        <input
+          type="text"
+          name="nome"
+          placeholder="Nome completo"
+          value={form.nome}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          value={form.email}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+        <input
+          type="tel"
+          name="telefone"
+          placeholder="Telefone"
+          value={form.telefone}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+        <input
+          type="number"
+          name="idade"
+          placeholder="Idade do titular"
+          value={form.idade}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+        <input
+          type="number"
+          name="dependentes"
+          placeholder="Número de dependentes"
+          value={form.dependentes}
+          onChange={handleChange}
+          className="mb-2 w-full border p-2 rounded"
+        />
+        <select
+          name="tipo"
+          value={form.tipo}
+          onChange={handleChange}
+          className="mb-2 w-full border p-2 rounded"
+        >
+          <option value="Individual">Individual</option>
+          <option value="Familiar">Familiar</option>
+          <option value="Empresarial">Empresarial</option>
+        </select>
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 rounded"
+        >
+          Calcular Orçamento
+        </button>
+      </form>
 
       {orcamento !== null && (
-        <div className="resultado-orcament">
-          <strong>Valor estimado: R$ {orcamento.toLocaleString('pt-BR')},00</strong>
+        <div className="mt-4 bg-green-100 p-3 text-green-800 rounded">
+          <p>
+            <strong>Valor estimado:</strong> R$ {orcamento.toLocaleString('pt-BR')},00
+          </p>
+          <button
+            onClick={gerarPDF}
+            className="mt-2 w-full bg-blue-600 text-white py-2 rounded"
+          >
+            Gerar PDF
+          </button>
+
+          <button
+  onClick={enviarWhatsapp}
+  className="mt-2 w-full bg-emerald-600 text-white py-2 rounded"
+>
+  Enviar pelo WhatsApp
+</button>
+
         </div>
       )}
     </div>
