@@ -159,9 +159,9 @@ Aguardo retorno.`;
           </button>
 
           <button
-  onClick={enviarWhatsapp}
-  className="mt-2 w-full bg-emerald-600 text-white py-2 rounded"
->
+          onClick={enviarWhatsapp}
+          className="Butum-zap"
+          >
   Enviar pelo WhatsApp
 </button>
 
