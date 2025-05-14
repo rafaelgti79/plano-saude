@@ -147,7 +147,7 @@ Aguardo retorno.`;
       </form>
 
       {orcamento !== null && (
-        <div className="mt-4 bg-green-100 p-3 text-green-800 rounded">
+        <div className="resultado-orcament">
           <p>
             <strong>Valor estimado:</strong> R$ {orcamento.toLocaleString('pt-BR')},00
           </p>
