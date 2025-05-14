@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 export default function PlanoSaudeOrcamento() {
   const [form, setForm] = useState({
@@ -36,7 +37,7 @@ export default function PlanoSaudeOrcamento() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
+    <div className="form-container">
       <h2 className="text-xl font-bold mb-4">Simulação de Plano de Saúde</h2>
       <input
         type="text"
