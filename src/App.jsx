@@ -97,7 +97,7 @@ export default function PlanoSaudeOrcamento() {
       </button>
 
       {orcamento !== null && (
-        <div className="mt-4 bg-green-100 p-3 text-green-800 rounded">
+        <div className="resultado-orcament">
           <strong>Valor estimado: R$ {orcamento.toLocaleString('pt-BR')},00</strong>
         </div>
       )}
