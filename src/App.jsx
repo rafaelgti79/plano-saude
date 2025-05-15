@@ -14,6 +14,7 @@ export default function PlanoSaudeOrcamento() {
 *Idade:* ${form.idade}
 *Dependentes:* ${form.dependentes}
 *Plano:* ${form.tipo}
+*Obs:* ${obs}
 
 
 Aguardo retorno.`;
@@ -30,9 +31,12 @@ Aguardo retorno.`;
     idade: '',
     dependentes: 0,
     tipo: 'Individual',
+  
   });
 
   const [orcamento, setOrcamento] = useState(null);
+  const [obs, setObs] = useState("");
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,24 +60,7 @@ Aguardo retorno.`;
     setOrcamento(base);
   };
 
-  const gerarPDF = () => {
-    const doc = new jsPDF();
-
-    doc.setFontSize(16);
-    doc.text('Orçamento de Plano de Saúde', 20, 20);
-
-    doc.setFontSize(12);
-    doc.text(`Nome: ${form.nome}`, 20, 40);
-    doc.text(`Email: ${form.email}`, 20, 50);
-    doc.text(`Telefone: ${form.telefone}`, 20, 60);
-    doc.text(`Idade: ${form.idade}`, 20, 70);
-    doc.text(`Dependentes: ${form.dependentes}`, 20, 80);
-    doc.text(`Tipo de plano: ${form.tipo}`, 20, 90);
-    
-
-    doc.save(`orcamento-${form.nome.replace(' ', '_')}.pdf`);
-  };
-
+ 
   return (
     <div className="form-container">
       <h2 className="text-xl font-bold mb-4">Simulação de Plano de Saúde</h2>
@@ -134,10 +121,20 @@ Aguardo retorno.`;
           onChange={handleChange}
           className="mb-2 w-full border p-2 rounded"
         >
-          <option value="Individual">Individual</option>
+        <option value="Individual">Individual</option>
           <option value="Familiar">Familiar</option>
           <option value="Empresarial">Empresarial</option>
         </select>
+
+      <label className='text-area'>
+        <span className='text-obs'>Obs:</span>
+        <textarea className='text-descri'  name='Obs:' placeholder='Imformações Adicionais' 
+          onChange={(e) => setObs(e.target.value)}
+          required
+          value={obs}>
+            
+         </textarea>
+      </label>
        
         <button
           onClick={enviarWhatsapp}
