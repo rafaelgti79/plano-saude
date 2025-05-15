@@ -63,7 +63,7 @@ Aguardo retorno.`;
  
   return (
     <div className="form-container">
-      <h2 className="text-xl font-bold mb-4">Simulação de Plano de Saúde</h2>
+      <h2>Simulação de Plano de Saúde</h2>
 
       <form
         onSubmit={(e) => {

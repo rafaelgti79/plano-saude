@@ -8,6 +8,7 @@
   font-family: Arial, sans-serif;
   align-items: center;
   flex: 1;
+  text-align: center;
 }
 
 .form-container h2 {
@@ -16,9 +17,17 @@
   color: #333;
 }
 
-.form-container input,
+ 
 .form-container select {
   width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+input{
+  width: 95%;
   margin-bottom: 12px;
   padding: 10px;
   border: 1px solid #ddd;
