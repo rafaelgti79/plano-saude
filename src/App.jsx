@@ -124,6 +124,7 @@ Aguardo retorno.`;
         <option value="Individual">Individual</option>
           <option value="Familiar">Familiar</option>
           <option value="Empresarial">Empresarial</option>
+           <option value="Dental">Dental</option>
         </select>
 
       <label className='text-area'>
