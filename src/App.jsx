@@ -14,7 +14,7 @@ export default function PlanoSaudeOrcamento() {
 *Idade:* ${form.idade}
 *Dependentes:* ${form.dependentes}
 *Plano:* ${form.tipo}
-*Valor estimado:* R$ ${orcamento},00
+
 
 Aguardo retorno.`;
 
@@ -69,7 +69,7 @@ Aguardo retorno.`;
     doc.text(`Idade: ${form.idade}`, 20, 70);
     doc.text(`Dependentes: ${form.dependentes}`, 20, 80);
     doc.text(`Tipo de plano: ${form.tipo}`, 20, 90);
-    doc.text(`Valor estimado: R$ ${orcamento},00`, 20, 110);
+    
 
     doc.save(`orcamento-${form.nome.replace(' ', '_')}.pdf`);
   };
@@ -138,32 +138,19 @@ Aguardo retorno.`;
           <option value="Familiar">Familiar</option>
           <option value="Empresarial">Empresarial</option>
         </select>
+       
         <button
-          type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded"
-        >
-          Calcular Orçamento
-        </button>
+          onClick={enviarWhatsapp}
+          className="Butum-zap"
+          > Enviar pelo WhatsApp
+          </button>
       </form>
 
       {orcamento !== null && (
         <div className="resultado-orcament">
-          <p>
-            <strong>Valor estimado:</strong> R$ {orcamento.toLocaleString('pt-BR')},00
-          </p>
-          <button
-            onClick={gerarPDF}
-            className="mt-2 w-full bg-blue-600 text-white py-2 rounded"
-          >
-            Gerar PDF
-          </button>
+         
 
-          <button
-          onClick={enviarWhatsapp}
-          className="Butum-zap"
-          >
-  Enviar pelo WhatsApp
-</button>
+          
 
         </div>
       )}
