@@ -73,4 +73,5 @@ input{
 .text-descri{
   width: 350px;
   height: 80px;
+  border-radius: 6px;
 }
