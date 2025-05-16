@@ -16,6 +16,10 @@ export default function PlanoSaudeOrcamento() {
 *Idade:* ${form.idade}
 *Dependentes:* ${form.dependentes}
 *Plano:* ${form.tipo}
+*Plano:* ${form.plano}
+*Documento:* ${form.doc}
+*Possui Plano:* ${form.sim}
+*Preferencia por Plano:* ${form.operadora}
 *Obs:* ${obs}
 
 
@@ -31,8 +35,12 @@ Aguardo retorno.`;
     email: '',
     telefone: '',
     idade: '',
-    dependentes: 0,
+    dependentes: 'Número de dependentes',
     tipo: 'Individual',
+    plano: '',
+    sim: 'Possui plano?',
+    operadora: '',
+    doc: '',
   
   });
 
@@ -114,6 +122,58 @@ Aguardo retorno.`;
           required
           className="mb-2 w-full border p-2 rounded"
         />
+        
+        <select
+          name="tipo"
+          value={form.tipo}
+          onChange={handleChange}
+          className="mb-2 w-full border p-2 rounded"
+        >
+          <option value="Individual">Individual</option>
+           <option value="Empresarial">Empresarial</option>
+        </select>
+
+        <select
+          name="plano"
+          value={form.plano}
+          onChange={handleChange}
+          className="mb-2 w-full border p-2 rounded"
+        >
+        <option value="Saúde">Saúde</option>
+           <option value="Dental">Dental</option>
+        </select>
+
+         <select
+          name="sim"
+          value={form.sim}
+          onChange={handleChange}
+          className="mb-2 w-full border p-2 rounded"
+          >
+          <option>Possui Plano?</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+        </select>
+
+        <input
+          type="number"
+          name="doc"
+          placeholder="CPF ou CNPJ"
+          value={form.idade}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+
+        <input
+          type="text"
+          name="operadora"
+          placeholder="Preferência por Plano ou Operadora?"
+          value={form.operadora}
+          onChange={handleChange}
+          required
+          className="mb-2 w-full border p-2 rounded"
+        />
+
         <input
           type="number"
           name="dependentes"
@@ -122,17 +182,6 @@ Aguardo retorno.`;
           onChange={handleChange}
           className="mb-2 w-full border p-2 rounded"
         />
-        <select
-          name="tipo"
-          value={form.tipo}
-          onChange={handleChange}
-          className="mb-2 w-full border p-2 rounded"
-        >
-        <option value="Individual">Individual</option>
-          <option value="Familiar">Familiar</option>
-          <option value="Empresarial">Empresarial</option>
-           <option value="Dental">Dental</option>
-        </select>
 
       <label className='text-area'>
         <span className='text-obs'>Obs:</span>
@@ -140,16 +189,17 @@ Aguardo retorno.`;
           onChange={(e) => setObs(e.target.value)}
           required
           value={obs}>
-            
-         </textarea>
+        </textarea>
       </label>
-       
+            
         <button
           onClick={enviarWhatsapp}
           className="Butum-zap"
           > Enviar pelo WhatsApp
-          </button>
+        </button>
+
       </form>
+       
 
       {orcamento !== null && (
         <div className="resultado-orcament">
