@@ -69,4 +69,11 @@ button:focus-visible {
   }
 }
 
+.logo{
+   width: 100px; /* Define a largura da imagem como 300 pixels */
+  height: 100px; /* Define a altura da imagem como 200 pixels */
+ border-radius: 40px;
+ 
+}
+
 

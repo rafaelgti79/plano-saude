@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import jsPDF from 'jspdf';
 import './App.css';
+import Logo from './assets/logomauri.png';
+
 
 export default function PlanoSaudeOrcamento() {
 
@@ -63,6 +65,11 @@ Aguardo retorno.`;
  
   return (
     <div className="form-container">
+
+      <div> 
+        <img className='logo' src={Logo} alt="logo" />
+      </div>
+
       <h2>Simulação de Plano de Saúde</h2>
 
       <form

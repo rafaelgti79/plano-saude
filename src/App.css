@@ -67,6 +67,7 @@ input{
 }
 
 .text-obs{
+  text-align: left;
   padding: 10px;
 }
 
@@ -75,3 +76,7 @@ input{
   height: 80px;
   border-radius: 6px;
 }
+
+
+
+
